@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "miraigoogle",
+  "version": "1.0.0",
+  "description": "Google検索のウェブ・ニュース・画像・動画・ショッピングをGemini AIで統合し、パズル/パッチワークレイアウトでシームレスに表示する拡張機能",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    },
+    "default_title": "miraigoogle"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.google.com/search*",
+    "https://www.google.co.jp/search*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background/miraigoogle-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/search*",
+        "https://www.google.co.jp/search*"
+      ],
+      "css": [
+        "content/miraigoogle.css"
+      ],
+      "js": [
+        "content/miraigoogle-early.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.google.com/search*",
+        "https://www.google.co.jp/search*"
+      ],
+      "js": [
+        "content/miraigoogle-parser.js",
+        "content/miraigoogle.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>miraigoogle - 設定</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">G</div>
+        <div>
+          <h1>miraigoogle</h1>
+          <p class="subtitle">AI統合検索設定</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="card">
+      <section class="section">
+        <h2>Gemini API 設定</h2>
+        <p class="description">
+          Google検索クエリの意図判定・レイアウト最適化を行うために Google Gemini API キーを入力してください。
+          キーはブラウザ内（<code>chrome.storage.sync</code>）にのみ安全に暗号化保存されます。
+        </p>
+        
+        <div class="field">
+          <label for="apiKey">Gemini API キー <span class="required">*</span></label>
+          <div class="input-with-button">
+            <input type="password" id="apiKey" placeholder="AIzaSy..." autocomplete="off">
+            <button type="button" id="toggleVisibility" class="btn-ghost">表示</button>
+          </div>
+          <div class="hint">
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio で API キーを取得</a>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="modelSelect">使用モデル</label>
+          <select id="modelSelect">
+            <option value="gemini-2.5-flash" selected>Gemini 2.5 Flash (推奨・最高速かつ高精度)</option>
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+            <option value="gemini-2.5-pro">Gemini 2.5 Pro (より複雑な意図分析)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>取得 & 表示設定</h2>
+        <div class="field">
+          <label for="maxItems">各カテゴリの最大取得件数 (1〜15件)</label>
+          <input type="number" id="maxItems" min="3" max="15" value="8">
+          <div class="hint">ウェブ、ニュース、画像、動画、ショッピング各カテゴリから取得する最大件数です。</div>
+        </div>
+
+        <div class="field-toggle">
+          <div>
+            <strong>デフォルトでAntigravity統合モードを有効にする</strong>
+            <p class="hint">検索結果アクセス時に自動的に統合フィードを表示します（ページ上のトグルで標準検索にいつでも切り替え可能）。</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="autoEnable" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="field-toggle">
+          <div>
+            <strong>Webサイトのプレビューサムネイルを表示する</strong>
+            <p class="hint">Webサイトの検索結果カードに、サイトのスクリーンショットまたはサムネイル画像を表示します。</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="showWebThumbnails" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="field-toggle">
+          <div>
+            <strong>フォールバックモード（APIキー未設定時）</strong>
+            <p class="hint">APIキーが設定されていない場合でも、独自のヒューリスティック分析によって自動統合フィードを生成します。</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="fallbackEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="testBtn" class="btn btn-secondary">接続テスト</button>
+        <button id="saveBtn" class="btn btn-primary">設定を保存</button>
+      </div>
+
+      <div id="statusMessage" class="status-msg" style="display: none;"></div>
+    </main>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
